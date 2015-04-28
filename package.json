@@ -1,0 +1,36 @@
+{
+  "name": "image-factory",
+  "version": "0.1.0",
+  "description": "Create different images sizes.",
+  "main": "index.js",
+  "scripts": {
+    "test": "node ./node_modules/istanbul/lib/cli cover ./node_modules/jasmine/bin/jasmine.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/steveherschleb/image-factory.git"
+  },
+  "keywords": [
+    "images",
+    "image",
+    "sizes",
+    "ImageMagick"
+  ],
+  "author": "Steve Herschleb <steve.herschleb@gmail.com>",
+  "license": {
+    "type": "MIT",
+    "url": "https://github.com/steveherschleb/image-factory/blob/master/LICENSE"
+  },
+  "bugs": {
+    "url": "https://github.com/steveherschleb/image-factory/issues"
+  },
+  "homepage": "https://github.com/steveherschleb/image-factory",
+  "devDependencies": {
+    "istanbul": "^0.3.13",
+    "jasmine": "^2.2.1"
+  },
+  "dependencies": {
+    "dank-copyfile": "0.0.2",
+    "imagemagick": "^0.1.3"
+  }
+}
