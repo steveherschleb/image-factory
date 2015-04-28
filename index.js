@@ -134,23 +134,23 @@ var ImageFactory = (function () {
       for (i = 0, len = newInstructions.length;i < len; i++) {
         //Validate the instructions, skip over any that don't pass validation
         if (!newInstructions[i]) {
-          continue; 
+          continue;
         }
         
         if (!('type' in newInstructions[i]) || typeof newInstructions[i].type !== 'string') {
-          continue; 
+          continue;
         }
         
         if (!('label' in newInstructions[i]) || typeof newInstructions[i].label !== 'string') {
-          continue; 
+          continue;
         }
         
         if (!('height' in newInstructions[i]) || typeof newInstructions[i].height !== 'number') {
-          continue; 
+          continue;
         }
         
         if (!('width' in newInstructions[i]) || typeof newInstructions[i].width !== 'number') {
-          continue; 
+          continue;
         }
         
         
@@ -194,7 +194,7 @@ var ImageFactory = (function () {
         images = [images];
       }
       
-      
+      //Creating the images takes some time and is async, so use a double recursive loop to process all images and all instructions serially
       (function outer (x) {
         
         if (x >= images.length) {

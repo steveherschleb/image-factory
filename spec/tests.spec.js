@@ -322,7 +322,7 @@ describe('The ImageFactory should generate images', function () {
       expect(images.length).toBe(0);
       expect(messages.length).toBe(1);
       
-      fs.stat('./spec/kitty-main.jpg', function (err, stats) {
+      fs.stat('./spec/kitty-main.jpg', function (err) {
         expect(err).not.toBeNull();
         done();
       });
@@ -338,7 +338,7 @@ describe('The ImageFactory should generate images', function () {
       expect(images.length).toBe(0);
       expect(messages.length).toBe(1);
       
-      fs.stat('./spec/kitty-main.jpg', function (err, stats) {
+      fs.stat('./spec/kitty-main.jpg', function (err) {
         expect(err).not.toBeNull();
         done();
       });

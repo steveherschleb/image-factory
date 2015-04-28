@@ -46,7 +46,13 @@ factory.process('product', { path: '/tmp/kitty.jpg' }, function (err, images, me
 Once the processing is done, you should have two new images in your /tmp directory: kitty-main.jpg and kitty-thumbnail.jpg.
 
 
-    
+## A Note on Performance
+
+ImageMagick tends to use lots of the available CPU computing power. This module processes all the images serially but has no queue or similar. If you call process() a bunch
+of times in parallel, your CPU will max out and responsiveness and overall performance will suffer. You may run out of memory. Please don't attempt to use this for 
+high throughput applications without a queue, multiple servers, load balancing, etc.
+
+
 ## Tests
 
   npm test
