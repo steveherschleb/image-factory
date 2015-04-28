@@ -25,8 +25,10 @@ var ImageFactory = (function () {
       quality: instruction.quality,
     };
     
+    //Assuming no errors, the output is always the same no matter if it's a resize, crop or copy. So just init it here.
     var output = { label: instruction.label, local: options.dstPath, original: options.srcPath, name: filename };
 
+    
     function resize() {
       imageMagick.resize(options, function(err) {
         callback(err, output );
@@ -49,6 +51,7 @@ var ImageFactory = (function () {
     }
 
     function copy() {
+      //Just create a copy
       copier(options.srcPath, options.dstPath, function(err) {
         callback(err, output );
       });
@@ -159,7 +162,7 @@ var ImageFactory = (function () {
           this.instructions[newInstructions[i].type] = [];
         }
         
-
+        //Add the new instruction
         this.instructions[newInstructions[i].type].push({
           label: newInstructions[i].label,
           height: newInstructions[i].height,
@@ -170,6 +173,7 @@ var ImageFactory = (function () {
           force: 'force' in newInstructions[i] ? newInstructions[i].force : true,
         });
         
+        //Save the number of available instructions
         this.count++;
       }
     },
@@ -186,6 +190,7 @@ var ImageFactory = (function () {
       }
 
       if (!(type in this.instructions)) {
+        //Eek, not sure what to do with this instruction
         return callback(new Error('invalid image type: ' + type));
       }
 
@@ -194,7 +199,8 @@ var ImageFactory = (function () {
         images = [images];
       }
       
-      //Creating the images takes some time and is async, so use a double recursive loop to process all images and all instructions serially
+      //Creating the images takes some time and is async, so process all images and all instructions serially.
+      //Plus, double immediately executing recursive functions FTW :)
       (function outer (x) {
         
         if (x >= images.length) {
@@ -219,17 +225,19 @@ var ImageFactory = (function () {
             return inner(++i);
           }
 
-          run(images[x], self.instructions[type][i], function (err, file, message) {
+          //Run this instruction on this image
+          run(images[x], self.instructions[type][i], function (err, data, message) {
             if (err) {
               return callback(err);
             }
             
-            if (file) {
-              output.push(file);
+            if (data) {
+              //Save the created image data
+              output.push(data);
             }
 
             if (message) {
-
+              //Save the message
               messages.push(message);
             }
 
